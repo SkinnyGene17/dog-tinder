@@ -1,10 +1,12 @@
 #app.yaml
+
 runtime: python27
 api_version: 1
 threadsafe: true
 
 handlers:
-- url: /static
+- url: /i
   static_dir: static
-- url: /.*
+- url: .*
   script: main.app
+

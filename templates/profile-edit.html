@@ -1,0 +1,17 @@
+{% extends "_base.html" %}
+{% block content %}
+<div id = "main">
+    Welcome to the edit page! Add your name, your dog's name, and a brief description of your dog! <br><br>
+    <form method = "post" action = "/profile-save">
+        Name:<br>
+        <input type = "text" name = "name" value="{{name}}"><br><br>
+        Dog Name:<br>
+        <input type = "text" name = "dogName" value = "{{dogName}}"><br><br>
+        Dog Breed:<br>
+        <input type = "text" name = "dogBreed" value = "{{dogBreed}}"><br><br>
+        Dog Description:<br>
+        <textarea name = "description" rows = "16">{{description}}</textarea><br><br>
+        <input type = "submit">
+    </form>
+</div>
+{% endblock %}
