@@ -27,6 +27,15 @@ def get_template_parameters():
         values['login_url'] = users.create_login_url('/')
     return values
 
+class Image(webapp2.RequestHandler):
+    def get(self):
+        dog_key = ndb.Key(urlsafe=self.request.get('img_id'))
+        dog = dog_key.get()
+        if dog.image:
+            self.response.headers['Content-Type'] = 'image/png'
+            self.response.out.write(dog.image)
+        else:
+            self.response.out.write('No image')
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -38,12 +47,12 @@ class MainHandler(webapp2.RequestHandler):
         render_template(self, 'mainpage.html', values)
 
 class ProfileViewHandler(webapp2.RequestHandler):
-    def get(self):
+    def get(self, ids):
         if not get_user_email():
             self.redirect('/')
         else:
             values = get_template_parameters()
-            profile = socialdata.get_user_profile(get_user_email())
+            profile = socialdata.get_profile_by_name(ids)
             if profile:
                 values['name'] = profile.name
                 values['description'] = profile.description
@@ -107,8 +116,9 @@ class ProfileSaveHandler(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([
-    ('/profile-view', ProfileViewHandler),
+    ('/profile-view/(.*)', ProfileViewHandler),
     ('/profile-edit', ProfileEditHandler),
     ('/profile-save', ProfileSaveHandler),
+    ('/img', Image)
     ('.*', MainHandler),
 ])

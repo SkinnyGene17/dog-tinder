@@ -7,6 +7,7 @@ class UserProfile(ndb.Model):
     dogName = ndb.StringProperty()
     dogBreed = ndb.StringProperty()
     description = ndb.TextProperty()
+    image = ndb.BlobProperty()
 
 class Dog(ndb.Model):
     name = ndb.StringProperty()
