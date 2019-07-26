@@ -107,6 +107,7 @@ class ProfileSaveHandler(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([
+    ('/profile-view', ProfileViewHandler),
     ('/profile-edit', ProfileEditHandler),
     ('/profile-save', ProfileSaveHandler),
     ('.*', MainHandler),
